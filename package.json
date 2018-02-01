@@ -1,0 +1,27 @@
+{
+  "name": "newsscraper",
+  "version": "1.0.0",
+  "description": "A web app that allows users to view and leave comments on the latest New York Times articles.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkltroth/NewsScraper.git"
+  },
+  "author": "James Roth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkltroth/NewsScraper/issues"
+  },
+  "homepage": "https://github.com/jkltroth/NewsScraper#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.0.2",
+    "request": "^2.83.0"
+  }
+}
