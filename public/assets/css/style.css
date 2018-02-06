@@ -1,0 +1,12 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.brand-logo {
+    margin-left: 10px;
+}
+
+#navLinks {
+    margin-left: 210px;
+}
