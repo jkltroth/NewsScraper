@@ -5,8 +5,8 @@ var express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-// Import the model (burger.js) to use its database functions.
-// var burger = require("../models/burger.js");
+// Require all models
+const db = require("../models");
 
 var router = express.Router();
 
@@ -17,7 +17,7 @@ router.get("/", function (req, res) {
 // A GET route for scraping
 router.get("/scrape", function (req, res) {
 
-    res.send("Scraping...");
+    // res.send("Scraping...");
 
     // First, we grab the body of the html with request
     axios.get("https://www.npr.org/sections/news/").then(function (response) {
@@ -36,16 +36,17 @@ router.get("/scrape", function (req, res) {
             console.log(result);
 
             // Create a new Article using the `result` object built from scraping
-            // db.Article
-            //   .create(result)
-            //   .then(function (dbArticle) {
-            //     // If we were able to successfully scrape and save an Article, send a message to the client
-            //     res.send("Scrape Complete");
-            //   })
-            //   .catch(function (err) {
-            //     // If an error occurred, send it to the client
-            //     res.json(err);
-            //   });
+            db.ScrapedArticle
+              .create(result)
+              .then(function (dbScrapedArticle) {
+                // If we were able to successfully scrape and save an Article, send a message to the client
+                res.send("Scrape Complete");
+              })
+              .catch(function (err) {
+                // If an error occurred, send it to the client
+                res.json(err);
+              });
+              
         });
     });
 });
