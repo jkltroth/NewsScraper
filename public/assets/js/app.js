@@ -8,6 +8,6 @@ $(document).on("click", "#scrapeBtn", function() {
                 url: "/scrape"
             }) // With that done, add the note information to the page
             .done(function (data) {
-                console.log(data);
+                console.log("We got the data!: " + data);
             });
     });

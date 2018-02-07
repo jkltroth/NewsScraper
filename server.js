@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
+// ------------------- 
+// Might be able to remove this section because the dependancies are required in the controller 
+
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
@@ -11,6 +14,8 @@ const cheerio = require("cheerio");
 
 // Require all models
 const db = require("./models");
+
+// ------------------- 
 
 const PORT = process.env.PORT || 3000;
 
