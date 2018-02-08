@@ -11,8 +11,13 @@ const db = require("../models");
 
 var router = express.Router();
 
+const handlebarsObject = {
+    articles: []
+};
+
 router.get("/", function (req, res) {
-    res.render("index");
+    // res.render("index");
+    res.render("index", handlebarsObject);
 });
 
 // A GET route for scraping
@@ -25,10 +30,6 @@ router.get("/scrape", function (req, res) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(html);
 
-        // const results = [];
-        const handlebarsObject = {
-            articles: []
-        };
 
         // Now, we grab every h2 within an article tag, and do the following:
         $("div.item-info").each(function (i, element) {
@@ -44,9 +45,10 @@ router.get("/scrape", function (req, res) {
                 link: link
             });
         });
-        
-        res.render("index", handlebarsObject);
+
         // res.json(handlebarsObject);
+        // res.render("index", handlebarsObject);
+        res.redirect("/");    
     });
 });
 
