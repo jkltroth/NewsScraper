@@ -11,19 +11,21 @@ const db = require("../models");
 
 var router = express.Router();
 
-const handlebarsObject = {
+const scrapedObject = {
     articles: []
 };
 
 router.get("/", function (req, res) {
-    // res.render("index");
-    res.render("index", handlebarsObject);
+    
+    res.render("index", scrapedObject);
 });
 
 // A GET route for scraping
 router.get("/scrape", function (req, res) {
 
     // res.send("Scraping...");
+
+    scrapedObject.articles = [];
 
     // First, we grab the body of the html with request
     request("https://www.npr.org/sections/news/", function (error, response, html) {
@@ -39,7 +41,7 @@ router.get("/scrape", function (req, res) {
             const teaser = $(element).children("p.teaser").children("a").text();
             const link = $(element).children("p.teaser").children("a").attr("href");
 
-            handlebarsObject.articles.push({
+            scrapedObject.articles.push({
                 title: title,
                 teaser: teaser,
                 link: link
