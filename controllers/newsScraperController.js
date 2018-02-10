@@ -11,13 +11,13 @@ const db = require("../models");
 
 var router = express.Router();
 
-const scrapedObject = {
-    articles: []
+const scrapedArticlesObject = {
+    scrapedArticles: []
 };
 
 router.get("/", function (req, res) {
 
-    res.render("index", scrapedObject);
+    res.render("index", scrapedArticlesObject);
 });
 
 // A GET route for scraping
@@ -25,7 +25,7 @@ router.get("/scrape", function (req, res) {
 
     // res.send("Scraping...");
 
-    scrapedObject.articles = [];
+    scrapedArticlesObject.scrapedArticles = [];
 
     // First, we grab the body of the html with request
     request("https://www.npr.org/sections/news/", function (error, response, html) {
@@ -40,14 +40,14 @@ router.get("/scrape", function (req, res) {
             const teaser = $(element).children("p.teaser").children("a").text();
             const link = $(element).children("p.teaser").children("a").attr("href");
 
-            scrapedObject.articles.push({
+            scrapedArticlesObject.scrapedArticles.push({
                 title: title,
                 teaser: teaser,
                 link: link
             });
         });
 
-        console.log(scrapedObject.articles);
+        console.log(scrapedArticlesObject.scrapedArticles);
         // res.json(handlebarsObject);
         // res.render("index", handlebarsObject);
         res.redirect("/");
@@ -59,8 +59,13 @@ router.get("/saved", function (req, res) {
     db.SavedArticle
     .find({})
     .then(function (dbSavedArticle) {
+
+        const savedArticlesObject = {
+            savedArticles: dbSavedArticle
+        };
+
       // If any Articles are found, send them to the client
-      res.json(dbSavedArticle);
+      res.render("saved", savedArticlesObject);
     })
     .catch(function (err) {
       // If an error occurs, send it back to the client

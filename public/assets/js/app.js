@@ -20,18 +20,18 @@ $(function () {
         console.log("clicked!")
 
         const savedArticle = {
-            title: $(this).siblings("a.titleLink").text(),
-            teaser: $(this).parent().siblings("p.teaser").text(),
-            link: $(this).siblings("a.titleLink").attr("href")
+            title: $(this).parent().siblings("div").children("a.titleLink").text(),
+            teaser: $(this).parent().siblings("div").children("div").children("p.teaser").text(),
+            link: $(this).parent().siblings("div").children("a.titleLink").attr("href")
         };
 
         console.log(savedArticle);
-        
+
         $.ajax({
             method: "POST",
             data: savedArticle,
             url: "/saved"
-        }).done(function() {
+        }).done(function () {
 
             console.log("Article saved!");
             // location.reload();
