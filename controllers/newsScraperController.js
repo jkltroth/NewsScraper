@@ -16,7 +16,7 @@ const scrapedObject = {
 };
 
 router.get("/", function (req, res) {
-    
+
     res.render("index", scrapedObject);
 });
 
@@ -31,7 +31,6 @@ router.get("/scrape", function (req, res) {
     request("https://www.npr.org/sections/news/", function (error, response, html) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(html);
-
 
         // Now, we grab every h2 within an article tag, and do the following:
         $("div.item-info").each(function (i, element) {
@@ -48,10 +47,38 @@ router.get("/scrape", function (req, res) {
             });
         });
 
+        console.log(scrapedObject.articles);
         // res.json(handlebarsObject);
         // res.render("index", handlebarsObject);
-        res.redirect("/");    
+        res.redirect("/");
     });
+});
+
+router.get("/saved", function (req, res) {
+   
+    db.SavedArticle
+    .find({})
+    .then(function (dbSavedArticle) {
+      // If any Articles are found, send them to the client
+      res.json(dbSavedArticle);
+    })
+    .catch(function (err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+});
+
+router.post("/saved", function (req, res) {
+
+    console.log(req.body);
+
+    db.SavedArticle.create(req.body)
+        .then(function (dbSavedArticle) {
+            res.send("Article Saved")
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
 });
 
 // Export routes for server.js to use.
