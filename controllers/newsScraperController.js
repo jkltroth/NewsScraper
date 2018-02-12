@@ -54,28 +54,28 @@ router.get("/scrape", function (req, res) {
     });
 });
 
+// A GET route for rendering the Saved Article collection
 router.get("/saved", function (req, res) {
-   
+
     db.SavedArticle
-    .find({})
-    .then(function (dbSavedArticle) {
+        .find({})
+        .then(function (dbSavedArticle) {
 
-        const savedArticlesObject = {
-            savedArticles: dbSavedArticle
-        };
+            const savedArticlesObject = {
+                savedArticles: dbSavedArticle
+            };
 
-      // If any Articles are found, send them to the client
-      res.render("saved", savedArticlesObject);
-    })
-    .catch(function (err) {
-      // If an error occurs, send it back to the client
-      res.json(err);
-    });
+            // If any Articles are found, send them to the client
+            res.render("saved", savedArticlesObject);
+        })
+        .catch(function (err) {
+            // If an error occurs, send it back to the client
+            res.json(err);
+        });
 });
 
+// A POST route for posting articles to the SavedArticle collection
 router.post("/saved", function (req, res) {
-
-    console.log(req.body);
 
     db.SavedArticle.create(req.body)
         .then(function (dbSavedArticle) {
@@ -85,6 +85,25 @@ router.post("/saved", function (req, res) {
             res.json(err);
         });
 });
+
+// A DELETE route for deleting articles from the SavedArticle collection
+router.delete("/delete/:id", function (req, res) {
+
+    db.SavedArticle.remove({
+            "_id": req.params.id
+        })
+        .then(function (dbSavedArticle) {
+            res.send("Article Deleted");
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+
+});
+
+
+
+
 
 // Export routes for server.js to use.
 module.exports = router;

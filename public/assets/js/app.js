@@ -11,13 +11,10 @@ $(function () {
             .done(function (data) {
 
                 location.reload();
-
             });
     });
 
     $(document).on("click", ".savedArticleBtn", function () {
-
-        console.log("clicked!")
 
         const savedArticle = {
             title: $(this).parent().siblings("div").children("a.titleLink").text(),
@@ -34,8 +31,20 @@ $(function () {
         }).done(function () {
 
             console.log("Article saved!");
-            // location.reload();
 
+        });
+    });
+
+    $(document).on("click", ".deleteArticleBtn", function () {
+
+        const thisId = $(this).attr("data-id");
+
+        $.ajax({
+            url: "/delete/" + thisId,
+            method: "DELETE"
+        }).done(function () {
+
+            location.reload();
         });
     });
 });
