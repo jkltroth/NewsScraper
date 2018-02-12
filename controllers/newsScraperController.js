@@ -65,8 +65,6 @@ router.get("/saved", function (req, res) {
                 savedArticles: dbSavedArticle
             };
 
-            console.log(savedArticlesObject);
-
             // If any Articles are found, send them to the client
             res.render("saved", savedArticlesObject);
         })
@@ -79,8 +77,6 @@ router.get("/saved", function (req, res) {
 // A POST route for posting articles to the SavedArticle collection
 router.post("/saved", function (req, res) {
 
-    console.log(req.body);
-
     db.SavedArticle.create(req.body)
         .then(function (dbSavedArticle) {
             res.send("Article Saved")
@@ -90,6 +86,7 @@ router.post("/saved", function (req, res) {
         });
 });
 
+// A DELETE route for deleting articles from the SavedArticle collection
 router.delete("/delete/:id", function (req, res) {
 
     db.SavedArticle.remove({
@@ -103,6 +100,8 @@ router.delete("/delete/:id", function (req, res) {
         });
 
 });
+
+
 
 
 
