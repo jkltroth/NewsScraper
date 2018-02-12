@@ -23,8 +23,6 @@ router.get("/", function (req, res) {
 // A GET route for scraping
 router.get("/scrape", function (req, res) {
 
-    // res.send("Scraping...");
-
     scrapedArticlesObject.scrapedArticles = [];
 
     // First, we grab the body of the html with request
@@ -46,10 +44,6 @@ router.get("/scrape", function (req, res) {
                 link: link
             });
         });
-
-        console.log(scrapedArticlesObject.scrapedArticles);
-        // res.json(handlebarsObject);
-        // res.render("index", handlebarsObject);
         res.redirect("/");
     });
 });

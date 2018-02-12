@@ -1,5 +1,6 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
+
     // When you click the scrape button
     $(document).on("click", "#scrapeBtn", function () {
 
@@ -14,6 +15,7 @@ $(function () {
             });
     });
 
+    // When you click the Save Article button
     $(document).on("click", ".savedArticleBtn", function () {
 
         const savedArticle = {
@@ -35,6 +37,7 @@ $(function () {
         });
     });
 
+    // When you click the Delete Article button
     $(document).on("click", ".deleteArticleBtn", function () {
 
         const thisId = $(this).attr("data-id");
