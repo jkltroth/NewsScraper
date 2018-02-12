@@ -68,7 +68,7 @@ router.get("/saved", function (req, res) {
         });
 });
 
-// A POST route for posting articles to the SavedArticle collection
+// A POST route for saving articles to the SavedArticle collection
 router.post("/saved", function (req, res) {
 
     db.SavedArticle.create(req.body)
