@@ -31,7 +31,6 @@ $(function () {
         }).done(function () {
 
             console.log("Article saved!");
-            // location.reload();
 
         });
     });
