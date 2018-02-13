@@ -1,2 +1,2 @@
 # NewsScraper
-A web app that allows users to view and leave comments on the latest New York Times articles.
+A web app that allows users to view and write notes on the latest NPR articles.
