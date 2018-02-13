@@ -51,6 +51,8 @@ router.get("/scrape", function (req, res) {
 // A GET route for rendering the Saved Article collection
 router.get("/saved", function (req, res) {
 
+    scrapedArticlesObject.scrapedArticles = [];
+
     db.SavedArticle
         .find({})
         .then(function (dbSavedArticle) {
@@ -80,6 +82,42 @@ router.post("/saved", function (req, res) {
         });
 });
 
+// A GET route for grabbing saved articles from the SavedArticle collection with their note included
+router.get("/saved/:id", function (req, res) {
+
+    db.SavedArticle.findOne({
+            "_id": req.params.id
+        })
+        .populate("note")
+        .then(function (dbSavedArticle) {
+
+            res.json(dbSavedArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+router.post("/saved/:id", function (req, res) {
+
+    db.Note.create(req.body)
+        .then(function (dbNote) {
+            return db.SavedArticle.findOneAndUpdate({
+                _id: req.params.id
+            }, {
+                note: dbNote._id
+            }, {
+                new: true
+            });
+        })
+        .then(function (dbSavedArticle) {
+            res.json(dbSavedArticle)
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
 // A DELETE route for deleting articles from the SavedArticle collection
 router.delete("/delete/:id", function (req, res) {
 
@@ -94,10 +132,6 @@ router.delete("/delete/:id", function (req, res) {
         });
 
 });
-
-
-
-
 
 // Export routes for server.js to use.
 module.exports = router;
