@@ -25,7 +25,30 @@
 
 <div class="container">
 
-    {{#each savedArticles}} 
-    {{> articles/savedArticleCards}} 
-    {{/each}}
+  {{#each savedArticles}} {{> articles/savedArticleCards}} {{/each}}
+
+  <!-- Modal Structure -->
+  <div id="notesModal" class="modal">
+
+    <div class="modal-content">
+      <div class="modal-title">
+      </div>
+      <div class="modal-body">
+      </div>
+
+      {{!--
+      <div class="row"> --}}
+        <form class="col s8">
+          <div>
+            <div class="input-field col s8">
+              <textarea placeholder="New Note" id="bodyInput" class="materialize-textarea"></textarea>
+            </div>
+          </div>
+        </form>
+        {{!-- </div> --}}
+
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
 </div>

@@ -50,4 +50,61 @@ $(function () {
             location.reload();
         });
     });
+
+    // When you click the Article Notes button 
+    $(document).on("click", ".articleNotesBtn", function () {
+
+        $(".modal-title").empty();
+        $("#bodyInput").val("");
+        $(".modal-footer").empty();
+
+        const thisId = $(this).attr("data-id");
+
+        $.ajax({
+                method: "GET",
+                url: "/saved/" + thisId
+            })
+            // With that done, add the note information to the page
+            .done(function (data) {
+                console.log(data)
+
+                //Modal title
+                $(".modal-title").prepend("<h4>Notes For Article:" + data._id + "</h4>");
+                // A button to submit a new note, with the id of the article saved to it
+                $(".modal-footer").append("<a data-id='" + data._id + "' class='saveNoteBtn modal-action modal-close ight waves-effect waves-light btn'>Save Note</a>");
+
+                // If there's a note in the article
+                if (data.note) {
+                    // Place the body of the note in the body textarea
+                    $("#bodyInput").val(data.note.body);
+                }
+
+                $('#notesModal').modal();
+                $('#notesModal').modal('open');
+
+            });
+
+    });
+
+    // When you click the Save Note button 
+    $(document).on("click", ".saveNoteBtn", function () {
+
+        const thisId = $(this).attr("data-id");
+
+        $.ajax({
+                method: "POST",
+                url: "/saved/" + thisId,
+                data: {
+                    // Value taken from note textarea
+                    body: $("#bodyInput").val()
+                }
+            })
+            // With that done....
+            .done(function (data) {
+                console.log(data)
+
+                $("#bodyInput").empty();
+
+            });
+    });
 });
