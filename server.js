@@ -45,8 +45,16 @@ app.set("view engine", "handlebars");
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
+
+if (process.env.MONGODB_URI){
+
+    mongoose.connect(process.env.MONGODB_URI);
+    
+} else {
+
 mongoose.connect("mongodb://localhost/newsScraper");
 
+}
 // Import routes and give the server access to them.
 const routes = require("./controllers/newsScraperController.js");
 
